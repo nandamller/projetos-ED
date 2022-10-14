@@ -18,11 +18,11 @@ class ArrayStack {
     //! destrutor
     ~ArrayStack();
     //! metodo empilha
-    void push(std::string data);
+    void push(T data);
     //! metodo desempilha
-    std::string pop();
+    T pop();
     //! metodo retorna o topo
-    std::string& top();
+    T& top();
     //! metodo limpa pilha
     void clear();
     //! metodo retorna tamanho
@@ -35,7 +35,7 @@ class ArrayStack {
     bool full();
 
  private:
-    std::string* contents;
+    T* contents;
     int top_;
     std::size_t max_size_;
 
@@ -49,14 +49,14 @@ class ArrayStack {
 template<typename T>
 structures::ArrayStack<T>::ArrayStack() {
     max_size_ = DEFAULT_SIZE;
-    contents = new std::string[max_size_];
+    contents = new T[max_size_];
     top_ = -1;
 }
 
 template<typename T>
 structures::ArrayStack<T>::ArrayStack(std::size_t max) {
     max_size_ = max;
-    contents = new std::string[max_size_];
+    contents = new T[max_size_];
     top_ = -1;
 }
 
@@ -66,7 +66,7 @@ structures::ArrayStack<T>::~ArrayStack() {
 }
 
 template<typename T>
-void structures::ArrayStack<T>::push(std::string data) {
+void structures::ArrayStack<T>::push(T data) {
     if (full()) {
         throw std::out_of_range("pilha cheia");
     } else {
@@ -76,7 +76,7 @@ void structures::ArrayStack<T>::push(std::string data) {
 }
 
 template<typename T>
-std::string structures::ArrayStack<T>::pop() {
+T structures::ArrayStack<T>::pop() {
     if (empty())
         throw std::out_of_range("pilha vazia");
     T aux;
@@ -86,7 +86,7 @@ std::string structures::ArrayStack<T>::pop() {
 }
 
 template<typename T>
-std::string& structures::ArrayStack<T>::top() {
+T& structures::ArrayStack<T>::top() {
     if (empty())
         throw std::out_of_range("pilha vazia");
     return contents[top_];

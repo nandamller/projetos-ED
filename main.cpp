@@ -8,6 +8,9 @@
 #include "array_list.h"
 
 
+// CONTAR A QUANTIDADE DE IMG
+
+
 int main() {
     bool ERRO = false;
     char xmlfilename[100];
@@ -15,9 +18,11 @@ int main() {
     structures::ArrayList<std::string>fila(500);
     //std::cin >> xmlfilename;
     std::ifstream arquivo;
-    arquivo.open("dataset02.xml");
+    arquivo.open("dataset01.xml");
     std::string conteudos;
     int linha = 0;
+    const char* imagens[100];
+    int inicial = 0;
     while (ERRO == false) {
         linha++;
         arquivo >> conteudos;
@@ -70,7 +75,6 @@ int main() {
                     }
                     i--;
                     std::stoi(width);
-                    printf("a largura eh %d\n", std::stoi(width));
                 } else if (pilha.top() == "height") {
                     std::string height = "";
                     while (conteudos[i] != '<') {
@@ -79,9 +83,17 @@ int main() {
                     }
                     i--;
                     std::stoi(height);
-                    printf("a altura eh %d\n", std::stoi(height));
+                } else if (pilha.top() == "name") {
+                    std::string name = "";
+                    while (conteudos[i] != '<') {
+                        name += conteudos[i];
+                        i++;
+                    }
+                    i--;
+                    imagens[inicial] = name.c_str();
+                    printf("%s\n", name.c_str());
+                    inicial++;
                 }
-                
             }
         }
         if (ERRO) {
@@ -97,6 +109,8 @@ int main() {
         printf("error");
         arquivo.close();
         return 0;
+    } else {
+        //printf("%s", imagens[0]);
     }
     
     return 0;
