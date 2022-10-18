@@ -8,21 +8,20 @@
 #include "array_list.h"
 
 
+struct imagens {
+    int quantidade = 0;
+};
+
 // CONTAR A QUANTIDADE DE IMG
-
-
-int main() {
-    bool ERRO = false;
-    char xmlfilename[100];
-    structures::ArrayStack<std::string>pilha(500);
-    structures::ArrayList<std::string>fila(500);
-    //std::cin >> xmlfilename;
+struct imagens verifica_arquivo(std::string conteudos) {
     std::ifstream arquivo;
     arquivo.open("dataset01.xml");
-    std::string conteudos;
+    structures::ArrayStack<std::string>pilha(500);
     int linha = 0;
     const char* imagens[100];
+    bool ERRO = false;
     int inicial = 0;
+    struct imagens resultado;
     while (ERRO == false) {
         linha++;
         arquivo >> conteudos;
@@ -75,7 +74,7 @@ int main() {
                     }
                     i--;
                     std::stoi(width);
-                } else if (pilha.top() == "height") {
+                } else if (pilha.top() == "height") { 
                     std::string height = "";
                     while (conteudos[i] != '<') {
                         height += conteudos[i];
@@ -90,8 +89,8 @@ int main() {
                         i++;
                     }
                     i--;
-                    imagens[inicial] = name.c_str();
-                    printf("%s\n", name.c_str());
+                    resultado.quantidade++;
+                    imagens[inicial] = name.c_str(); 
                     inicial++;
                 }
             }
@@ -106,12 +105,25 @@ int main() {
     
     */
     if (!pilha.empty() || (ERRO)) {     // se nao estiver vazia no final, causa erro
-        printf("error");
+        printf("error\n");
         arquivo.close();
-        return 0;
-    } else {
-        //printf("%s", imagens[0]);
+        resultado.quantidade = 0;
+        return resultado;
     }
-    
+    return resultado;
+}
+
+int main() {
+    char xmlfilename[100];
+    structures::ArrayList<std::string>fila(500);
+    //std::cin >> xmlfilename;
+    std::ifstream arquivo;
+    std::string conteudos;
+    struct imagens retorno;
+    retorno = verifica_arquivo(conteudos);
+    if (retorno.quantidade != 0) {
+        printf("tem %d imagens\n", retorno.quantidade);
+    }
+    const char* imagens[100];
     return 0;
 }
