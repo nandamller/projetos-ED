@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cstdint>  // std::size_t
 #include <stdexcept>  // C++ exceptions
@@ -8,6 +9,7 @@
 
 #include "array_list.h"
 #include "verifica_arquivo.h"
+#include "conta_conexos.h"
 
 int main() {
     char xmlfilename[100];
@@ -15,10 +17,16 @@ int main() {
     std::cin >> xmlfilename;
     std::ifstream arquivo;
     std::string conteudos;
+    
+    conta_conexos(conteudos, xmlfilename);
+
     struct imagens retorno;
     retorno = verifica_arquivo(conteudos, xmlfilename);
+    
     if (retorno.quantidade != 0) {
-        printf("%d\n", retorno.quantidade);
+        for (int i = 1; i <= retorno.quantidade; i++) {
+            printf("0%d.png\n", i);
+        }
     }
     const char* imagens[100];
     return 0;
