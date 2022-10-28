@@ -1,39 +1,12 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#include <cstdint>      // std::size_t
-#include <stdexcept>    // C++ exceptions
-#include <string>
-#include <fstream>
-#include <unistd.h>
-#include <iostream>
-#include <fstream>      // Biblioteca para escrita/leitura de arquivos
-
-#include "linked_list.h"
+#include "../classes/matrix_image.h"
 
 using namespace std;
 using namespace structures;
 
-
-int calcula_qtd(string imagem, int altura, int largura) {
-    int quantidade_conexos = 0;
-
-    structures::LinkedList<std::list> matriz;
-
-    for (int i = 0; i < altura; i++) {
-        structures::LinkedList<std::string> linha;
-        for (int j = 0; j < largura; j++) {
-            linha.push_front('0');
-        }
-        matriz.push_front(linha);
-    }
-
-    cout << matriz.empty() <<  endl;
-
-    return quantidade_conexos;
-}
-
-void conta_conexos(string conteudos, string xmlfilename) {
-    ifstream xml_file("dataset01.xml");
+void conta_conexos(string conteudos, string xmlfilename) {    
+    ifstream xml_file("./datasets/dataset01.xml");
     string xml_string;
     string line;
 
@@ -43,9 +16,9 @@ void conta_conexos(string conteudos, string xmlfilename) {
         }
         xml_file.close();
     } else {
-        cout << "Arquivo não pode ser lido" << endl;
+        cout << "Erro na leitura do arquivo" << endl;
+        return;
     }
-
     string height;
     string width;
     string data;    
@@ -59,31 +32,39 @@ void conta_conexos(string conteudos, string xmlfilename) {
                 tag += xml_string[i];
                 i++;
             }
-
-            cout << tag << endl;
-
             if (tag == "height") {
                 i++; // pula o >
                 while (xml_string[i] != '<') {
                     height += xml_string[i];
                     i++;
                 }
-                cout << "Saiu do loop." << height <<  endl;
             } else if (tag == "width") {
                 i++; // pula o >
                 while (xml_string[i] != '<') {
                     width += xml_string[i];
                     i++;
                 }
-                cout << "Saiu do loop." << width <<  endl;
             } else if (tag == "data") {
                 i++; // pula o >
+
                 while (xml_string[i] != '<') {
                     data += xml_string[i];
                     i++;
                 } 
+
+                cout << data[127] << "isso" << endl;
+                // cria a matriz que vai representar a imagem
+                Matrix_Image matrix_image = Matrix_Image(stoi(height), stoi(width));
+
+                for (int lines = 0; lines < stoi(height)-1; lines++) {
+                    for (int columns = 0; columns < stoi(width)-1; columns++) {
+                        int element = data[stoi(width)*lines + columns];
+                        matrix_image.set_element(lines, columns, element);
+                    }
+                }
+
                 
-                int u = calcula_qtd(data, stoi(height), stoi(width));
+                
             }
         }
         

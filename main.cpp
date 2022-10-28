@@ -5,19 +5,23 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
-//#include "array_stack.h"
 
-#include "array_list.h"
-#include "verifica_arquivo.h"
-#include "conta_conexos.h"
+
+#include "./classes/array_list.h"
+#include "./src/verifica_arquivo.h"
+#include "./src/conta_conexos.h"
 
 int main() {
     char xmlfilename[100];
     structures::ArrayList<std::string>fila(500);
-    std::cin >> xmlfilename;
+    // std::cin >> xmlfilename;
     std::ifstream arquivo;
     std::string conteudos;
     
+    // Lendo o arquivo
+    arquivo.open("./datasets/dataset01.xml");
+    arquivo >> conteudos;
+
     conta_conexos(conteudos, xmlfilename);
 
     struct imagens retorno;

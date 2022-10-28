@@ -3,7 +3,7 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
-#include "array_stack.h"
+#include "../classes/array_stack.h"
 
 //#include "array_list.h"
 
