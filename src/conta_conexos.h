@@ -21,8 +21,7 @@ void conta_conexos(string conteudos, string xmlfilename) {
     }
     string height;
     string width;
-    string data;    
-
+    string data;
     for (int i = 0; i < xml_string.size(); i++) {
         if (xml_string[i] == '<' && xml_string[i+1] != '/') {
             string tag;
@@ -51,20 +50,33 @@ void conta_conexos(string conteudos, string xmlfilename) {
                     data += xml_string[i];
                     i++;
                 } 
-
-                cout << data[127] << "isso" << endl;
+                // cout << data << endl;
                 // cria a matriz que vai representar a imagem
-                Matrix_Image matrix_image = Matrix_Image(stoi(height), stoi(width));
+                int **matriz;
+                matriz = (int**)calloc(stoi(width), sizeof(int *));
+                for (int k = 0; k < stoi(width); k++) {
+                    matriz[k] = (int *)calloc(stoi(height), sizeof(int));
+                }
+                for (int k = 0; k < stoi(width); k++) {
+                    for (int p = 0; p < stoi(height); p++) {
+                        printf("%d", matriz[k][p]);
+                    }
+                }
+
+                for (int p = 0; i < stoi(width); p++) {
+                    free (matriz[p]);
+                }
+                free (matriz);
+                /* Matrix_Image *matrix_image = new Matrix_Image(stoi(height), stoi(width));
 
                 for (int lines = 0; lines < stoi(height)-1; lines++) {
                     for (int columns = 0; columns < stoi(width)-1; columns++) {
                         int element = data[stoi(width)*lines + columns];
-                        matrix_image.set_element(lines, columns, element);
+                        matrix_image->set_element(lines, columns, element);
                     }
                 }
-
-                
-                
+                delete matrix_image;
+                printf("deletei");*/
             }
         }
         

@@ -12,7 +12,7 @@ struct imagens {
 };
 
 // CONTAR A QUANTIDADE DE IMG
-struct imagens verifica_arquivo(std::string conteudos, std::string xmlfilename) {
+struct imagens verifica_arquivo(std::ifstream arquivo) {
     std::ifstream arquivo;
     arquivo.open(xmlfilename);
     structures::ArrayStack<std::string>pilha(500);
@@ -91,6 +91,14 @@ struct imagens verifica_arquivo(std::string conteudos, std::string xmlfilename) 
                     resultado.quantidade++;
                     imagens[inicial] = name.c_str(); 
                     inicial++;
+                } else if (pilha.top() == "data") {
+                    std::string data = "";
+                    while (conteudos[i] != '<') {
+                        data += conteudos[i];
+                        i++;
+                    }
+                    i--;
+                    printf("%s", data.c_str());
                 }
             }
         }
