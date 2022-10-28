@@ -17,7 +17,7 @@ using namespace structures;
 int calcula_qtd(string imagem, int altura, int largura) {
     int quantidade_conexos = 0;
 
-    structures::LinkedList<std::string> matriz;
+    structures::LinkedList<std::list> matriz;
 
     for (int i = 0; i < altura; i++) {
         structures::LinkedList<std::string> linha;
