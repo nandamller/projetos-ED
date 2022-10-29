@@ -1,23 +1,15 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#include <stdio.h>
-#include <string.h>
-
 #include "../classes/matrix_image.h"
 
 using namespace std;
 using namespace structures;
 
-int* conta_conexos(string _xml_string, int _qtd_imagens) {    
+void conta_conexos(string _xml_string, ArrayList<int> *p) {    
     string xml_string = _xml_string;
-    int qtd_imagens = _qtd_imagens;
 
     int height = 0;
     int width = 0;
-
-    ArrayList<int>components_list(_qtd_imagens);
-    ArrayList<int> *p;
-    p = &components_list;
 
     for (int i = 0; i < xml_string.size(); i++) {
         if (xml_string[i] == '<' && xml_string[i+1] != '/') {
@@ -76,9 +68,8 @@ int* conta_conexos(string _xml_string, int _qtd_imagens) {
                         }
                     }
                 }
-                components_list.push_back(matrix_image.count_components(height, width));          
+                p->push_back((matrix_image.count_components(height, width)));          
             }
         }
     }
-    return p;
 }

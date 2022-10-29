@@ -75,9 +75,8 @@ void structures::ArrayList<T>::clear() {
 template<typename T>
 void structures::ArrayList<T>::push_back(const T& data) {
     if (full()) {
-        throw std::out_of_range("lista cheia");
+        throw std::out_of_range("ArrayList: lista cheia");
     }
-    std::cout << "pushback -> " << get() << "\n";
     contents[size_] = data;
     size_++;
 }
@@ -85,7 +84,7 @@ void structures::ArrayList<T>::push_back(const T& data) {
 template<typename T>
 void structures::ArrayList<T>::push_front(const T& data) {
     if (full()) {
-        throw std::out_of_range("lista cheia");
+        throw std::out_of_range("ArrayList: lista cheia");
     }
     size_++;
     for (int i = size_ - 1; i > 0; i--) {
@@ -97,10 +96,10 @@ void structures::ArrayList<T>::push_front(const T& data) {
 template<typename T>
 void structures::ArrayList<T>::insert(const T& data, std::size_t index) {
     if (full()) {
-        throw std::out_of_range("lista cheia");
+        throw std::out_of_range("ArrayList: lista cheia");
     }
     if (index > size_) {
-        throw std::out_of_range("fora do alcance");
+        throw std::out_of_range("ArrayList: fora do alcance");
     }
     if (index == 0) {
         return push_front(data);
@@ -127,10 +126,10 @@ void structures::ArrayList<T>::insert_sorted(const T& data) {
 template<typename T>
 T structures::ArrayList<T>::pop(std::size_t index) {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("ArrayList: lista vazia");
     }
     if (index > size_-1) {
-        throw std::out_of_range("fora de alcance");
+        throw std::out_of_range("ArrayList: fora de alcance");
     }
     size_--;
     int aux = contents[index];
@@ -143,7 +142,7 @@ T structures::ArrayList<T>::pop(std::size_t index) {
 template<typename T>
 T structures::ArrayList<T>::pop_back() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("ArrayList: lista vazia");
     }
     size_--;
     return contents[size_];
@@ -152,7 +151,7 @@ T structures::ArrayList<T>::pop_back() {
 template<typename T>
 T structures::ArrayList<T>::pop_front() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("ArrayList: lista vazia");
     }
     int aux = contents[0];
     size_--;
@@ -205,7 +204,7 @@ std::size_t structures::ArrayList<T>::max_size() const {
 template<typename T>
 std::string structures::ArrayList<T>::get() {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("ArrayList: lista vazia");
     }
 
     std::string resultado;
@@ -218,7 +217,7 @@ std::string structures::ArrayList<T>::get() {
 template<typename T>
 T& structures::ArrayList<T>::at(std::size_t index) {
     if (size_-1 < index) {
-        throw std::out_of_range("posicao nao existente");
+        throw std::out_of_range("ArrayList: posicao nao existente");
     }
     return contents[index];
 }
@@ -226,7 +225,7 @@ T& structures::ArrayList<T>::at(std::size_t index) {
 template<typename T>
 const T& structures::ArrayList<T>::at(std::size_t index) const {
     if (size_-1 < index) {
-        return std::out_of_range("posicao nao existente");
+        return std::out_of_range("ArrayList: posicao nao existente");
     }
     return contents[index];
 }
@@ -234,7 +233,7 @@ const T& structures::ArrayList<T>::at(std::size_t index) const {
 template<typename T>
 T& structures::ArrayList<T>::operator[](std::size_t index) {
     if (size_-1 < index) {
-        throw std::out_of_range("posicao nao existente");
+        throw std::out_of_range("ArrayList: posicao nao existente");
     }
     return contents[index];
 }
@@ -242,7 +241,7 @@ T& structures::ArrayList<T>::operator[](std::size_t index) {
 template<typename T>
 const T& structures::ArrayList<T>::operator[](std::size_t index) const {
     if (size_-1 < index) {
-        return std::out_of_range("posicao nao existente");
+        return std::out_of_range("ArrayList: posicao nao existente");
     }
     return contents[index];
 }
@@ -250,7 +249,7 @@ const T& structures::ArrayList<T>::operator[](std::size_t index) const {
 template<typename T>
 void structures::ArrayList<T>::remove(const T& data) {
     if (empty()) {
-        throw std::out_of_range("lista vazia");
+        throw std::out_of_range("ArrayList: lista vazia");
     }
     for (int i = 0; (std::size_t)i < size_; i++) {
         if (contents[i] == data) {

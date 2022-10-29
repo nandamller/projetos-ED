@@ -24,20 +24,22 @@ int main() {
         cout << "error" << endl;
     }
 
-    struct imagens retorno;
-    retorno = verifica_arquivo(xml_string);
-    int qtd_imagens = retorno.quantidade;
+    int qtd_imagens = verifica_arquivo(xml_string);
+
+    ArrayList<int>components_list(qtd_imagens);
+    ArrayList<int> *p;
+    p = &components_list;
+
+    conta_conexos(xml_string, p);
 
     if (qtd_imagens != 0) {
         for (int i = 1; i <= qtd_imagens; i++) {
-            printf("0%d.png\n", i);
-
-        }
-        if (ERRO) {
-            break;
+            if (i < 10) {
+                printf("0%d.png %d\n", i, components_list.at(i-1));
+            } else {
+                printf("%d.png\n", i);
+            }
         }
     }
-    conta_conexos(xml_string, qtd_imagens);
-
     return 0;
 }
