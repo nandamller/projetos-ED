@@ -1,17 +1,15 @@
-//! Copyright [2022] <Fernanda Larissa Müller>
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
+
 #ifndef STRUCTURES_LINKED_LIST_H
 #define STRUCTURES_LINKED_LIST_H
 
 #include <cstdint>
 
-
 namespace structures {
 
-//! ...
 template<typename T>
 class LinkedList {
  public:
-    //! ...
     LinkedList();  // construtor padrão
     ~LinkedList();  // destrutor
     void clear();  // limpar lista

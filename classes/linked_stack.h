@@ -1,4 +1,4 @@
-// COPYRIGHT [2022] Fernanda Müller e Pedro Nack
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
 #ifndef STRUCTURES_LINKED_STACK_H
 #define STRUCTURES_LINKED_STACK_H

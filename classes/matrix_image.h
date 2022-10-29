@@ -7,7 +7,6 @@
 #include <cstdint>
 #include <string.h>
 
-
 #include "linked_queue.h"
 
 using namespace std;

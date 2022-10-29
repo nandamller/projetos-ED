@@ -1,4 +1,5 @@
-// Copyright [2022] <Pedro Nack Martins>
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
+
 #ifndef STRUCTURES_ARRAY_LIST_H
 #define STRUCTURES_ARRAY_LIST_H
 

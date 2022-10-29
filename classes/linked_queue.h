@@ -1,4 +1,4 @@
-// COPYRIGHT [2022] Fernanda Müller e Pedro Nack
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
 #ifndef STRUCTURES_LINKED_QUEUE_H
 #define STRUCTURES_LINKED_QUEUE_H
@@ -115,7 +115,7 @@ void structures::LinkedQueue<T>::enqueue(const T& data) {
     Node* new_node = new Node(data, tail);
 
     if (new_node == nullptr) {
-        throw std::out_of_range("Erro na criação do nó");
+        throw std::out_of_range("erro na criação do nó");
     }
 
     if (empty()) {
@@ -131,7 +131,7 @@ void structures::LinkedQueue<T>::enqueue(const T& data) {
 template <typename T>
 T structures::LinkedQueue<T>::dequeue() {
     if (empty()) {
-        throw std::out_of_range("Fila vazia");
+        throw std::out_of_range("fila vazia");
     }
 
     Node* aux = head;
@@ -147,7 +147,7 @@ T structures::LinkedQueue<T>::dequeue() {
 template <typename T>
 T& structures::LinkedQueue<T>::back() {
     if (empty()) {
-        throw std::out_of_range("Lista vazia");
+        throw std::out_of_range("fila vazia");
     }
 
     return tail->data();
@@ -156,7 +156,7 @@ T& structures::LinkedQueue<T>::back() {
 template <typename T>
 T& structures::LinkedQueue<T>::front() {
     if (empty()) {
-        throw std::out_of_range("Lista vazia");
+        throw std::out_of_range("fila vazia");
     }
 
     return head->data();

@@ -1,10 +1,11 @@
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
+
 #include <iostream>
 #include <cstdint>  // std::size_t
 #include <stdexcept>  // C++ exceptions
 #include <string>
 #include <fstream>
 #include <unistd.h>
-
 
 #include "./classes/array_list.h"
 #include "./classes/linked_list.h"
@@ -37,7 +38,6 @@ int main() {
     int qtd_imagens = verifica_arquivo(xml_string, q);
 
     if (qtd_imagens != 0) {
-        // cout << qtd_imagens << " <- qtd_imagens" << endl;
         ArrayList<int>components_list(qtd_imagens);
         ArrayList<int> *p;
         p = &components_list;
