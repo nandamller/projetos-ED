@@ -36,20 +36,7 @@ int main() {
         if (ERRO) {
             break;
         }
-}
-if (!pilha.empty() || (ERRO)) {     // se nao estiver vazia no final, causa erro
-    printf("error\n");
-    arquivo.close();
-    return 1;
-} else {
-    for (int i = 0; i < posicao; i++) {
-        printf("altura: %d, largura: %d\n", altura, largura);
-        printf("%s\n", nomes[i].c_str());
-        printf("%s\n", imagens[i].c_str());
     }
-
-    const char* imagens[100];
-
     conta_conexos(xml_string, qtd_imagens);
 
     return 0;

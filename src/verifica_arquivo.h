@@ -26,7 +26,7 @@ struct imagens verifica_arquivo(string _xml_string) {
     for (int i = 0; i < xml_string.size(); i++) {  // checando cada caracter
         if (xml_string[i] == '<') {
             if (xml_string[i+1] != '/') {          // se nao for '/', esta empilhando
-                std::string tag("");
+                string tag("");
                 i++;
                 while (xml_string[i] != '>') {
                     tag += xml_string[i];
@@ -42,79 +42,38 @@ struct imagens verifica_arquivo(string _xml_string) {
                     i++;
                 }
                 try {
-                    std::string topo = pilha.top(); // checar se fila esta vazia, causa erro
+                    string topo = pilha.top(); // checar se fila esta vazia, causa erro
                 } catch (std::out_of_range& e) {
                     ERRO = true;
                     break;
                 }
-
                 if (pilha.top() == "width") {
                     std::string width = "";
-                    while (conteudos[i] != '<') {
-                        width += conteudos[i];
+                    while (xml_string[i] != '<') {
+                        width += xml_string[i];
                         i++;
                     }
                     i--;
                     std::stoi(width);
                 } else if (pilha.top() == "height") { 
                     std::string height = "";
-                    while (conteudos[i] != '<') {
-                        height += conteudos[i];
+                    while (xml_string[i] != '<') {
+                        height += xml_string[i];
                         i++;
                     }
                     i--;
                     std::stoi(height);
                 } else if (pilha.top() == "name") {
                     std::string name = "";
-                    while (conteudos[i] != '<') {
-                        name += conteudos[i];
+                    while (xml_string[i] != '<') {
+                        name += xml_string[i];
                         i++;
                     }
                     i--;
                     resultado.quantidade++;
                     imagens[inicial] = name.c_str(); 
                     inicial++;
-                } if (!tag.compare(pilha.top())) {    // verifica se esta fechando corretamente
-                    pilha.pop();
-                } else {
-                    ERRO = true;
-                    break;
-
                 }
-            }
-        } else {
-            try {
-                std::string topo = pilha.top();
-            } catch (std::out_of_range& e) {
-                ERRO = true;
-                break;
-            }
-            if (pilha.top() == "width") {
-                std::string width = "";
-                while (xml_string[i] != '<') {
-                    width += xml_string[i];
-                    i++;
-                }
-                i--;
-                std::stoi(width);
-            } else if (pilha.top() == "height") { 
-                std::string height = "";
-                while (xml_string[i] != '<') {
-                    height += xml_string[i];
-                    i++;
-                }
-                i--;
-                std::stoi(height);
-            } else if (pilha.top() == "name") {
-                std::string name = "";
-                while (xml_string[i] != '<') {
-                    name += xml_string[i];
-                    i++;
-                }
-                i--;
-                resultado.quantidade++;
-                imagens[inicial] = name.c_str(); 
-                inicial++;
             }
         }
     }
