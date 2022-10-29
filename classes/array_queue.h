@@ -73,7 +73,7 @@ structures::ArrayQueue<T>::~ArrayQueue() {
 template<typename T>
 void structures::ArrayQueue<T>::enqueue(const T& data) {
     if (full())
-        throw std::out_of_range("fila cheia");
+        throw std::out_of_range("ArrayQueue: fila cheia");
     size_++;
     end_ = (end_ + 1)%max_size_;
     contents[end_] = data;

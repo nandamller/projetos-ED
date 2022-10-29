@@ -7,11 +7,16 @@
 
 
 #include "./classes/array_list.h"
+#include "./classes/linked_list.h"
 #include "./src/verifica_arquivo.h"
 #include "./src/conta_conexos.h"
 
 int main() {
-    ifstream xml_file("./datasets/dataset01.xml");
+    string xmlfilename;
+    cin >> xmlfilename;
+
+    xmlfilename = "./datasets/" + xmlfilename;
+    ifstream xml_file(xmlfilename);
     string xml_string;
     string line;
 
@@ -24,21 +29,23 @@ int main() {
         cout << "error" << endl;
     }
 
-    int qtd_imagens = verifica_arquivo(xml_string);
+    // lista com os nomes dos arquivos
+    LinkedList<string>files_list;
+    LinkedList<string> *q;
+    q = &files_list;
 
-    ArrayList<int>components_list(qtd_imagens);
-    ArrayList<int> *p;
-    p = &components_list;
-
-    conta_conexos(xml_string, p);
+    int qtd_imagens = verifica_arquivo(xml_string, q);
 
     if (qtd_imagens != 0) {
-        for (int i = 1; i <= qtd_imagens; i++) {
-            if (i < 10) {
-                printf("0%d.png %d\n", i, components_list.at(i-1));
-            } else {
-                printf("%d.png\n", i);
-            }
+        // cout << qtd_imagens << " <- qtd_imagens" << endl;
+        ArrayList<int>components_list(qtd_imagens);
+        ArrayList<int> *p;
+        p = &components_list;
+
+        conta_conexos(xml_string, p);
+
+        for (int i = 0; i < qtd_imagens; i++) {
+            cout << files_list.at(i) << " " << components_list.at(i) << endl;
         }
     }
     return 0;

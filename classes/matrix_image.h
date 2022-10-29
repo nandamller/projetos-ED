@@ -8,7 +8,7 @@
 #include <string.h>
 
 
-#include "array_queue.h"
+#include "linked_queue.h"
 
 using namespace std;
 
@@ -99,7 +99,7 @@ structures::Matrix_Image::~Matrix_Image() {
 int structures::Matrix_Image::count_components(int height, int width) {
     // fila para adicionar a posição (x, y) da vizinhança
     using pos = pair<int, int>;
-    ArrayQueue<pos> queue;
+    LinkedQueue<pos> queue;
 
     // cria a matriz 0
     Matrix_Image matrix_zero = Matrix_Image(height, width);

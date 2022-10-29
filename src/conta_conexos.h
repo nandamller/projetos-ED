@@ -5,7 +5,7 @@
 using namespace std;
 using namespace structures;
 
-void conta_conexos(string _xml_string, ArrayList<int> *p) {    
+void conta_conexos(string _xml_string, ArrayList<int> *p) {   
     string xml_string = _xml_string;
 
     int height = 0;

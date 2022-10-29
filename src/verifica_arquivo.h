@@ -1,20 +1,16 @@
-//#include <cstdint>  // std::size_t
-//#include <stdexcept>  // C++ exceptions
-//#include <string>
-//#include <fstream>
-//#include <unistd.h>
-//#include <stdio.h>
+// @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#include "../classes/array_stack.h"
+#include "../classes/linked_stack.h"
 
 using namespace std;
+using namespace structures;
 
 // CONTAR A QUANTIDADE DE IMG
 
-int verifica_arquivo(string _xml_string) {
+int verifica_arquivo(string _xml_string, LinkedList<string> *q) {
     string xml_string = _xml_string;
     
-    structures::ArrayStack<std::string>pilha(500);
+    LinkedStack<std::string>pilha;
     bool ERRO = false;
     const char* imagens[100];
  
@@ -60,25 +56,26 @@ int verifica_arquivo(string _xml_string) {
                 break;
             }
             if (pilha.top() == "width") {
-                std::string width = "";
+                string width = "";
                 while (xml_string[i] != '<') {
                     width += xml_string[i];
                     i++;
                 }
                 i--;
             } else if (pilha.top() == "height") { 
-                std::string height = "";
+                string height = "";
                 while (xml_string[i] != '<') {
                     height += xml_string[i];
                     i++;
                 }
                 i--;
             } else if (pilha.top() == "name") {
-                std::string name = "";
+                string name = "";
                 while (xml_string[i] != '<') {
                     name += xml_string[i];
                     i++;
                 }
+                q->push_back(name);
                 i--;
                 resultado++;
                 imagens[inicial] = name.c_str(); 
@@ -87,7 +84,7 @@ int verifica_arquivo(string _xml_string) {
         }
     }
     if (!pilha.empty() || ERRO) {     // se nao estiver vazia no final, causa erro
-        printf("error--\n");
+        cout << "error" << endl;
         return 0;
     }
     return resultado;
