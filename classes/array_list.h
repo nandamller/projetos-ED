@@ -2,6 +2,7 @@
 #ifndef STRUCTURES_ARRAY_LIST_H
 #define STRUCTURES_ARRAY_LIST_H
 
+#include <iostream>
 #include <cstdint>
 
 namespace structures {
@@ -32,6 +33,7 @@ class ArrayList {
     T& operator[](std::size_t index);
     const T& at(std::size_t index) const;
     const T& operator[](std::size_t index) const;
+    std::string get();
     // descricao do 'operator []' na FAQ da disciplina
 
  private:
@@ -75,6 +77,7 @@ void structures::ArrayList<T>::push_back(const T& data) {
     if (full()) {
         throw std::out_of_range("lista cheia");
     }
+    std::cout << "pushback -> " << get() << "\n";
     contents[size_] = data;
     size_++;
 }
@@ -197,6 +200,19 @@ std::size_t structures::ArrayList<T>::size() const {
 template<typename T>
 std::size_t structures::ArrayList<T>::max_size() const {
     return max_size_;
+}
+
+template<typename T>
+std::string structures::ArrayList<T>::get() {
+    if (empty()) {
+        throw std::out_of_range("lista vazia");
+    }
+
+    std::string resultado;
+    for (int i = 0; i < size()-1; i++) {
+        resultado += contents[i];
+    }
+    return resultado;
 }
 
 template<typename T>

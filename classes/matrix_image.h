@@ -1,9 +1,14 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#ifndef MATRIX_IMAGE_H
-#define MATRIX_IMAGE_H
+#ifndef MATRIX_H
+#define MATRIX_H
 
+#include <iostream>
 #include <cstdint>
+#include <string.h>
+
+
+#include "array_queue.h"
 
 using namespace std;
 
@@ -28,8 +33,10 @@ class Matrix_Image{
         /*
             Método que conta a quantidade de componentes conexos presentes na matriz.
             Esse método retorna um inteiro com a quantidade de conexos.
+
+            @param data -> string contendo a imagem
         */ 
-        int count_components();
+        int count_components(int height, int width);
 
         /*
             Método para setar os valores da matriz.
@@ -59,17 +66,16 @@ class Matrix_Image{
         int columns;
 
         // Componentes conexos
-        int components;
+        // int components;
 };
 
 } // namespace structures
 
-#endif // MATRIX_IMAGE_H
+#endif // MATRIX_H
 
-structures::Matrix_Image::Matrix_Image(int line, int columns) {
-    line = line;
-    columns = columns;
-    components = 0;
+structures::Matrix_Image::Matrix_Image(int _line, int _columns) {
+    line = _line;
+    columns = _columns;
 
     matrix = new int*[line];
 
@@ -90,10 +96,62 @@ structures::Matrix_Image::~Matrix_Image() {
     delete[] matrix;
 }
 
-int structures::Matrix_Image::count_components() {
+int structures::Matrix_Image::count_components(int height, int width) {
+    // fila para adicionar a posição (x, y) da vizinhança
+    using pos = pair<int, int>;
+    ArrayQueue<pos> queue;
+
+    // cria a matriz 0
+    Matrix_Image matrix_zero = Matrix_Image(height, width);
     
-    
-    return components;
+    int components = 1;
+    // loop que vai de linha em linha
+    for (int k = 0; k < height; k++) {
+        //loop que vai pelas colunas
+        for (int j = 0; j < width; j++) {
+            if (!matrix_zero.get_element(k, j) && matrix[k][j]) {
+                matrix_zero.set_element(k, j, components);
+
+                // adicionando na fila
+                queue.enqueue({k, j});
+
+                // enquanto não estiver vazia vai adicionando a vizinhança
+                while (!queue.empty()) {
+                    pos pos_atual = queue.dequeue();
+
+                    const int x = pos_atual.first;
+                    const int y = pos_atual.second;
+
+                    // x, y-1
+                    if (y-1 >= 0 && matrix_zero.get_element(x, y-1) == 0 && matrix[x][y-1]) {
+                        matrix_zero.set_element(x, y-1, components);
+                        queue.enqueue({x, y-1});
+                    }
+
+                    // x, y+1
+                    if (y+1 < width && matrix_zero.get_element(x, y+1) == 0 && matrix[x][y+1]) {
+                        matrix_zero.set_element(x, y+1, components);
+                        queue.enqueue({x, y+1});
+                    }
+
+                    // x-1, y
+                    if (x-1 >= 0 && matrix_zero.get_element(x-1, y) == 0 && matrix[x-1][y]) {
+                        matrix_zero.set_element(x-1, y, components);
+                        queue.enqueue({x-1, y});
+                    }
+
+                    // x+1, y
+                    if (x+1 < height && matrix_zero.get_element(x+1, y) == 0 && matrix[x+1][y]) {
+                        matrix_zero.set_element(x+1, y, components);
+                        queue.enqueue({x+1, y});
+                    }
+                }
+                components++;
+
+            } 
+        }
+    } 
+    return components-1;
 }
 
 void structures::Matrix_Image::set_element(int line, int column, int new_element) {
