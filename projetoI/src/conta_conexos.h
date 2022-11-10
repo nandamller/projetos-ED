@@ -55,7 +55,7 @@ void conta_conexos(string _xml_string, ArrayList<int> *p) {
 
                 // c percorre os valores de data
                 for (const char& c:data) {
-                    if (std::isspace(c)) {
+                    if (isspace(c)) {
                         continue;
                     }
                     
