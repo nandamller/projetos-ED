@@ -5,7 +5,10 @@
 
 #include <iostream>
 #include <cstdint>
+#include <tuple>
+
 #include <string.h>
+#include <trie_node.h>
 
 using namespace std;
 
@@ -16,54 +19,95 @@ namespace structures {
 class Trie{
     public:
         /*
-            Constrói uma classe para a uma árvore de prefixos.
-        */
+            Construtor da classe árvore de prefixos. O construtor será responsável
+            por abrir o arquivo de dicionário e montar a árvore.
 
-        // Construtor da classe
+            @param dict -> nome do arquivo de dicionário a ser lido. 
+        */
         Trie(string dict);
 
         // Destrutor da classe
         ~Trie();
 
         /*
-            Método que conta a quantidade de componentes conexos presentes na matriz.
-            Esse método retorna um inteiro com a quantidade de conexos.
+            Método que adiciona uma palavra à árvore.
 
-            @param data -> string contendo a imagem
+            @param word -> palavra a ser adicionada na árvore.
+            @param position -> posição inicial da palavra.
+            @param length -> comprimento da palavra.
         */ 
-        int count_components(int height, int width);
+        void add(string word, int position, int length);
 
         /*
-            Método para setar os valores da matriz.
+            Método que confere e retorna:
+                1. Se a palavra é prefixo de outras palavras.
+                2. Se for, retorna a quantidade de palavras que possuem a palavra
+                passada por parâmetro como prefixo.
             
-            @param line -> linha do elemento
-            @param column -> coluna do elemento
-            @param new_element -> elemento a ser setado
+            @param  -> .
         */
-        void set_element(int line, int column, int new_element);
+        int check_prefix(string word);
 
         /*
-            Método para pegar os valores da matriz.
+            Método que retorna uma tupla com dois inteiros correspondentes ao
+            index e o comprimento da palavra no dicionário, respectivamente.
             
-            @param line -> linha do elemento
-            @param column -> coluna do elemento
+            @param  word -> palavra a ser encontrada.
         */
-        int get_element(int line, int column);
+        tuple<int, int> find_index(string word);
 
     private:
-        // Matriz
-        int** matrix;
+        // Nome do arquivo
+        string dictionary;
 
-        // Linhas
-        int line;
-    
-        // Colunas
-        int columns;
-
-        // Componentes conexos
-        // int components;
+        // Nó raiz
+        TrieNode* root{nullptr};
 };
 
 } // namespace structures
 
 #endif // MATRIX_H
+
+structures::Trie::Trie(string dict) {
+    root = new TrieNode;
+
+    dictionary = "./dictionaries/" + dict;
+    ifstream file_dict(dictionary);
+
+    string line;
+
+    if (file_dict.is_open()) {
+        int pos = 0;
+        while (getline(file_dict, line)) {
+            string word;
+            
+            // loop p/ encontrar a palavra
+            for (int i = 1; i < line.length(); i++) {
+                if (line[i] == ']')
+                    break;
+
+                word += line[i];
+            }
+
+            int len = line.length() + pos;
+            // inserindo a palavra na árvore
+            add(word, pos, len);
+
+            // atribuido a posição dentro do dicionário p/ saber para as próximas palavras
+            pos += line.length() + 1;
+        }
+        file_dict.close();
+    } else {
+        cout << "error" << endl;
+    }
+}
+
+structures::Trie::~Trie() {}
+
+structures::Trie::add(string word, int position, int length) {
+    TrieNode* current_node = root;
+
+    for (int i = 0; i < word.length(); i++) {
+        
+    }
+}

@@ -16,7 +16,11 @@ namespace structures {
 class TrieNode{
     public:
         /*
-            Constrói uma classe .
+            Constrói uma classe para um nó da árvore.
+
+            @param character -> catacter correspondente ao nó.
+            @param position -> a posição do caracter inicial.
+            @param length -> comprimento da linha.
         */
 
         // Construtor da classe
@@ -25,32 +29,49 @@ class TrieNode{
         // Destrutor da classe
         ~TrieNode();
 
-        //
+        /*
+            Método que adiciona novos filhos ao nó. A quantidade máxima de filhos é o
+            tamanho do dicionário.
+    
+            @param node -> nó que será adicionado como filho.
+        */
         add_child(TrieNode node);
 
-        //
+        /*
+            Método para setar a posição do nó.
+    
+            @param new_position -> nova posição.
+        */
         set_position(int new_position);
         
-        //
+        /*
+            Método para setar o comprimento do nó.
+    
+            @param new_length -> novo comprimento.
+        */
         set_length(int new_length);
 
-        //
+        // Método retorna o char correspondente ao nó.
         get_char();
 
-        //
+        /*
+            Método para verificar se determinado caracter é filho ou não desse nó.
+            
+            @param child_character -> caracter a ser encontrado (ou não).
+        */
         contains(char child_character);
 
     private:
-        // 
+        // Caracter correspondente ao nó
         char character;
 
-        // 
+        // Lista de filhos do nó
         LinkedList<TrieNode> children;
 
-        // 
+        // Posição inicial da palavra e significado
         int position;
 
-        //
+        // Comprimento da palavra e significado
         int length;
 };
 
