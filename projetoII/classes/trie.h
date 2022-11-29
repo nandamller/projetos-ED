@@ -76,6 +76,7 @@ structures::Trie::Trie(string dict) {
 
     string line;
 
+    // criação da árvore a partir do dicionário
     if (file_dict.is_open()) {
         int pos = 0;
         while (getline(file_dict, line)) {
@@ -108,6 +109,17 @@ structures::Trie::add(string word, int position, int length) {
     TrieNode* current_node = root;
 
     for (int i = 0; i < word.length(); i++) {
-        
+        // se o nó atual não possui esse char como filho
+        if (!current_node->contains(word[i])) {
+            // se for a última letra
+            if (i == word.length()-1) {
+                new_node = new TrieNode(word[i], position, length);
+            }
+            else {
+                new_node = new TrieNode(word[i], 0, 0);
+            }
+            current_node->add_child(new_node);
+        }
+        current_node = current_node->get_children(word[i]);
     }
 }
