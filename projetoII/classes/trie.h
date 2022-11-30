@@ -105,12 +105,14 @@ structures::Trie::Trie(string dict) {
 
 structures::Trie::~Trie() {}
 
-structures::Trie::add(string word, int position, int length) {
+void structures::Trie::add(string word, int position, int length) {
     TrieNode* current_node = root;
 
     for (int i = 0; i < word.length(); i++) {
         // se o nó atual não possui esse char como filho
         if (!current_node->contains(word[i])) {
+            TrieNode* new_node;
+
             // se for a última letra
             if (i == word.length()-1) {
                 new_node = new TrieNode(word[i], position, length);
@@ -122,4 +124,39 @@ structures::Trie::add(string word, int position, int length) {
         }
         current_node = current_node->get_children(word[i]);
     }
+}
+
+int structures::Trie::check_prefix(string word) {
+    TrieNode* current_node = root;
+
+    int prefix;
+
+    for (int i = 0; i < word.length(); i++) {
+        /* se o nó atual não possui esse char como filho retorna 0 que vai ser
+        tratado de alguma forma lá na frente */
+        if (!current_node->contains(word[i])) {
+            prefix = 0;
+            break;
+        }
+        current_node = current_node->get_children(word[i]);
+        prefix = current_node->get_children_amount();
+    }
+    return prefix;
+}
+
+tuple<int, int> structures::Trie::find_index(string word) {
+    TrieNode* current_node = root;
+
+    tuple <int, int> index;
+    for (int i = 0; i < word.length(); i++) {
+        /* se o nó atual não possui esse char como filho retorna 0,0 que vai ser
+        tratado de alguma forma lá na frente */
+        if (!current_node->contains(word[i])) {
+            index = make_tuple(0,0);
+            break;
+        }
+        current_node = current_node->get_children(word[i]);
+        index = make_tuple(current_node->get_position, current_node->get_length);
+    }
+    return index;
 }

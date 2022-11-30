@@ -35,38 +35,49 @@ class TrieNode{
     
             @param node -> nó que será adicionado como filho.
         */
-        add_child(TrieNode node);
+        void add_child(TrieNode node);
 
         /*
             Método para setar a posição do nó.
     
             @param new_position -> nova posição.
         */
-        set_position(int new_position);
+        void set_position(int new_position);
         
         /*
             Método para setar o comprimento do nó.
     
             @param new_length -> novo comprimento.
         */
-        set_length(int new_length);
+        void set_length(int new_length);
 
-        // Método retorna o char correspondente ao nó.
-        get_char();
+        // Método que retorna a posição
+        int get_position();
+
+        // Método que retorna o comprimento
+        int get_length();
+
+        // Método que retorna o char correspondente ao nó.
+        char get_char();
 
         /*
             Método para verificar se determinado caracter é filho ou não desse nó.
             
             @param child_character -> caracter a ser encontrado (ou não).
         */
-        contains(char child_character);
+        bool contains(char child_character);
 
         /*
             Método que retorna o nó de determinado filho (caso possua este filho).
             
             @param child_character -> caracter a ser encontrado (ou não).
         */
-        get_children(char child_character);
+        TrieNode* get_children(char child_character);
+
+        /*
+            Método que retorna a quantidade de filhos que o TrieNode possui
+         */
+        int get_children_amount();
 
     private:
         // Caracter correspondente ao nó
@@ -106,6 +117,14 @@ void structures::TrieNode::set_length(int new_length) {
     length = new_length;
 }
 
+int structures::TrieNode::get_position() {
+    return position;
+}
+
+int structures::TrieNode::get_length() {
+    return length;
+}
+
 char structures::TrieNode::get_char() {
     return character;
 }
@@ -126,3 +145,6 @@ bool structures::TrieNode::contains(char child_character) {
     return false;
 }
 
+int  structures::TrieNode::get_children_amount() {
+    return children.size();
+}
