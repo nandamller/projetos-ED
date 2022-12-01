@@ -1,13 +1,13 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#ifndef TRIE_NODE_H
-#define TRIE_NODE_H
+#ifndef TRIENODE_H
+#define TRIENODE_H
 
 #include <iostream>
 #include <cstdint>
 #include <string.h>
 
-#include "linked_list.h"
+#include "LinkedList.h"
 
 using namespace std;
 
@@ -35,7 +35,7 @@ class TrieNode{
     
             @param node -> nó que será adicionado como filho.
         */
-        void add_child(TrieNode node);
+        void add_child(int index, TrieNode* node);
 
         /*
             Método para setar a posição do nó.
@@ -72,7 +72,7 @@ class TrieNode{
             
             @param child_character -> caracter a ser encontrado (ou não).
         */
-        TrieNode* get_children(char child_character);
+        TrieNode* get_children(int index);
 
         /*
             Método que retorna a quantidade de filhos que o TrieNode possui
@@ -84,29 +84,34 @@ class TrieNode{
         char character;
 
         // Lista de filhos do nó
-        LinkedList<TrieNode> children;
+        TrieNode* children[26];
 
         // Posição inicial da palavra e significado
         int position;
 
         // Comprimento da palavra e significado
         int length;
+
+        // Quantidade de filhos
+        int children_amount;
 };
 
 } // namespace structures
 
 #endif
 
-structures::TrieNode::TrieNode(char character, int position, int length) {
-    character = character;
+structures::TrieNode::TrieNode(char charac, int position, int length) {
+    character = charac;
     position = position;
     length = length;
+    children_amount = 0;
 }
 
 structures::TrieNode::~TrieNode() {}
 
-void structures::TrieNode::add_child(TrieNode node){
-    children.push_back(node);
+void structures::TrieNode::add_child(int index, TrieNode* node){
+    children[index] = node;
+    children_amount++;
 }
 
 void structures::TrieNode::set_position(int new_position) {
@@ -129,22 +134,19 @@ char structures::TrieNode::get_char() {
     return character;
 }
 
-TrieNode* structures::TrieNode::get_children(char child_character) {
-    for (int i = 0; i < children.size(); i++) {
-        if (children.at(i).get_char() == child_character)
-            return children.at(i);
-    }
+structures::TrieNode* structures::TrieNode::get_children(int index) {
+    return children[index];
 }
 
 bool structures::TrieNode::contains(char child_character) {
-    for (int i = 0; i < children.size(); i++) {
-        if (children.at(i).get_char() == child_character)
+    for (int i = 0; i < children_amount; i++) {
+        if (children[i]->get_char() == child_character)
             return true;
     }
 
     return false;
 }
 
-int  structures::TrieNode::get_children_amount() {
-    return children.size();
+int structures::TrieNode::get_children_amount() {
+    return children_amount;
 }

@@ -1,7 +1,7 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-#ifndef STRUCTURES_LINKED_LIST_H
-#define STRUCTURES_LINKED_LIST_H
+#ifndef STRUCTURES_LINKEDLIST_H
+#define STRUCTURES_LINKEDLIST_H
 
 #include <cstdint>
 
@@ -13,8 +13,8 @@ class LinkedList {
     LinkedList();  // construtor padrão
     ~LinkedList();  // destrutor
     void clear();  // limpar lista
-    void push_back(const T& data);  // inserir no fim
-    void push_front(const T& data);  // inserir no início
+    void push_back(const T* data);  // inserir no fim
+    void push_front(const T* data);  // inserir no início
     void insert(const T& data, std::size_t index);  // inserir na posição
     void insert_sorted(const T& data);  // inserir em ordem
     T& at(std::size_t index);  // acessar um elemento na posição index
@@ -30,7 +30,7 @@ class LinkedList {
  private:
     class Node {  // Elemento
      public:
-        explicit Node(const T& data):
+        explicit Node(const T* data):
             data_{data}
         {}
 
@@ -99,7 +99,7 @@ void structures::LinkedList<T>::clear() {
 }
 
 template<typename T>
-void structures::LinkedList<T>::push_back(const T& data) {
+void structures::LinkedList<T>::push_back(const T* data) {
     if (empty()) {
         return push_front(data);
     } else {
@@ -117,7 +117,7 @@ void structures::LinkedList<T>::push_back(const T& data) {
 }
 
 template<typename T>
-void structures::LinkedList<T>::push_front(const T& data) {
+void structures::LinkedList<T>::push_front(const T* data) {
     Node *novo = new Node(data);
     novo->next(head);
     head = novo;

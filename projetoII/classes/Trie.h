@@ -6,9 +6,9 @@
 #include <iostream>
 #include <cstdint>
 #include <tuple>
-
 #include <string.h>
-#include <trie_node.h>
+
+#include "TrieNode.h"
 
 using namespace std;
 
@@ -69,7 +69,7 @@ class Trie{
 #endif // MATRIX_H
 
 structures::Trie::Trie(string dict) {
-    root = new TrieNode;
+    root = new TrieNode(' ', 0, 0);
 
     dictionary = "./dictionaries/" + dict;
     ifstream file_dict(dictionary);
@@ -80,8 +80,9 @@ structures::Trie::Trie(string dict) {
     if (file_dict.is_open()) {
         int pos = 0;
         while (getline(file_dict, line)) {
-            string word;
             
+            string word;
+
             // loop p/ encontrar a palavra
             for (int i = 1; i < line.length(); i++) {
                 if (line[i] == ']')
@@ -107,6 +108,9 @@ structures::Trie::~Trie() {}
 
 void structures::Trie::add(string word, int position, int length) {
     TrieNode* current_node = root;
+    TrieNode* new_node;
+
+    cout << word << ": " << word.length() << endl;
 
     for (int i = 0; i < word.length(); i++) {
         // se o nó atual não possui esse char como filho
@@ -120,10 +124,12 @@ void structures::Trie::add(string word, int position, int length) {
             else {
                 new_node = new TrieNode(word[i], 0, 0);
             }
-            current_node->add_child(new_node);
+            current_node->add_child(word[i]-'a', new_node);
         }
-        current_node = current_node->get_children(word[i]);
+        new_node = current_node->get_children(word[i]-'a');
+        current_node = new_node;
     }
+    cout << "teste3" << endl;
 }
 
 int structures::Trie::check_prefix(string word) {
@@ -138,7 +144,7 @@ int structures::Trie::check_prefix(string word) {
             prefix = 0;
             break;
         }
-        current_node = current_node->get_children(word[i]);
+        current_node = current_node->get_children(word[i]-'a');
         prefix = current_node->get_children_amount();
     }
     return prefix;
@@ -155,8 +161,8 @@ tuple<int, int> structures::Trie::find_index(string word) {
             index = make_tuple(0,0);
             break;
         }
-        current_node = current_node->get_children(word[i]);
-        index = make_tuple(current_node->get_position, current_node->get_length);
+        current_node = current_node->get_children(word[i]-'a');
+        index = make_tuple(current_node->get_position(), current_node->get_length());
     }
     return index;
 }
