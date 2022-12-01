@@ -65,7 +65,7 @@ class TrieNode{
             
             @param child_character -> caracter a ser encontrado (ou não).
         */
-        bool contains(char child_character);
+        bool contains(int index);
 
         /*
             Método que retorna o nó de determinado filho (caso possua este filho).
@@ -105,6 +105,10 @@ structures::TrieNode::TrieNode(char charac, int position, int length) {
     position = position;
     length = length;
     children_amount = 0;
+
+    for (int i = 0; i < 26; i++) {
+        children[i] = 0;
+    }
 }
 
 structures::TrieNode::~TrieNode() {}
@@ -138,13 +142,13 @@ structures::TrieNode* structures::TrieNode::get_children(int index) {
     return children[index];
 }
 
-bool structures::TrieNode::contains(char child_character) {
-    for (int i = 0; i < children_amount; i++) {
-        if (children[i]->get_char() == child_character)
-            return true;
+bool structures::TrieNode::contains(int index) {
+    if (children[index] != 0) {
+        return true;
     }
-
-    return false;
+    else {
+        return false;
+    }
 }
 
 int structures::TrieNode::get_children_amount() {

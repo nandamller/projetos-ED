@@ -108,13 +108,14 @@ structures::Trie::~Trie() {}
 
 void structures::Trie::add(string word, int position, int length) {
     TrieNode* current_node = root;
-    TrieNode* new_node;
-
-    cout << word << ": " << word.length() << endl;
 
     for (int i = 0; i < word.length(); i++) {
+        int index = word[i]-'a';
+
+        current_node->contains(index);
+
         // se o nó atual não possui esse char como filho
-        if (!current_node->contains(word[i])) {
+        if (!current_node->contains(index)) {
             TrieNode* new_node;
 
             // se for a última letra
@@ -124,12 +125,10 @@ void structures::Trie::add(string word, int position, int length) {
             else {
                 new_node = new TrieNode(word[i], 0, 0);
             }
-            current_node->add_child(word[i]-'a', new_node);
+            current_node->add_child(index, new_node);
         }
-        new_node = current_node->get_children(word[i]-'a');
-        current_node = new_node;
+        current_node = current_node->get_children(index);
     }
-    cout << "teste3" << endl;
 }
 
 int structures::Trie::check_prefix(string word) {
