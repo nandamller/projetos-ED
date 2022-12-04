@@ -51,6 +51,8 @@ class TrieNode{
         */
         void set_length(int new_length);
 
+        void increase_prefix_of();
+
         // Método que retorna a posição
         int get_position();
 
@@ -59,6 +61,8 @@ class TrieNode{
 
         // Método que retorna o char correspondente ao nó.
         char get_char();
+
+        int get_prefix_of();
 
         /*
             Método para verificar se determinado caracter é filho ou não desse nó.
@@ -83,6 +87,8 @@ class TrieNode{
         // Caracter correspondente ao nó
         char character;
 
+        int prefix_of;
+
         // Lista de filhos do nó
         TrieNode* children[26];
 
@@ -105,6 +111,7 @@ structures::TrieNode::TrieNode(char charac, int position, int length) {
     position = position;
     length = length;
     children_amount = 0;
+    prefix_of = 0;
 
     for (int i = 0; i < 26; i++) {
         children[i] = 0;
@@ -132,6 +139,14 @@ int structures::TrieNode::get_position() {
 
 int structures::TrieNode::get_length() {
     return length;
+}
+
+int structures::TrieNode::get_prefix_of() {
+    return prefix_of;
+}
+
+void structures::TrieNode::increase_prefix_of() {
+    prefix_of++;
 }
 
 char structures::TrieNode::get_char() {

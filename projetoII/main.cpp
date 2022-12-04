@@ -27,6 +27,19 @@ int main() {
     // Criando a árvore
     Trie trie = Trie(file_name);
 
+    string word;
+    
+    while (1) {  // leitura das palavras ate' encontrar "0"
+        cin >> word;
+        if (word.compare("0") == 0) {
+            break;
+        }
+        if (trie.check_prefix_amount(word) == 0) {
+            cout << word << " is not prefix" << endl;
+        } else {
+            cout << word << " is prefix of " << trie.check_prefix_amount(word) << " words" << endl;
+        }
+    }
     // apagando da entrada os caracteres que correspondem ao dicionário
     // input_string.erase(0, 13);
 }

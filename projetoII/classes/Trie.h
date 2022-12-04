@@ -47,6 +47,8 @@ class Trie{
             @param  -> .
         */
         int check_prefix(string word);
+    
+        int check_prefix_amount(string word);
 
         /*
             Método que retorna uma tupla com dois inteiros correspondentes ao
@@ -127,8 +129,10 @@ void structures::Trie::add(string word, int position, int length) {
             }
             current_node->add_child(index, new_node);
         }
+        current_node->increase_prefix_of();
         current_node = current_node->get_children(index);
     }
+    current_node->increase_prefix_of();
 }
 
 int structures::Trie::check_prefix(string word) {
@@ -147,6 +151,18 @@ int structures::Trie::check_prefix(string word) {
         prefix = current_node->get_children_amount();
     }
     return prefix;
+}
+
+int structures::Trie::check_prefix_amount(string word) {
+    TrieNode* current_node = root;
+    for (int i = 0; i < word.length(); i++) {
+        int index = word[i]-'a';
+        if (!current_node->contains(index)) {
+            return 0;
+        }
+        current_node = current_node->get_children(word[i]-'a');
+    }
+    return current_node->get_prefix_of();
 }
 
 tuple<int, int> structures::Trie::find_index(string word) {
