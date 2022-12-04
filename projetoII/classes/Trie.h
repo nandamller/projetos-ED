@@ -81,6 +81,7 @@ structures::Trie::Trie(string dict) {
     // criação da árvore a partir do dicionário
     if (file_dict.is_open()) {
         int pos = 0;
+        int prev = -1;
         while (getline(file_dict, line)) {
             
             string word;
@@ -92,8 +93,9 @@ structures::Trie::Trie(string dict) {
 
                 word += line[i];
             }
-
-            int len = line.length() + pos;
+            prev++;
+            int len = line.length() + pos - prev;
+            prev = prev + len;
             // inserindo a palavra na árvore
             add(word, pos, len);
 
@@ -172,12 +174,17 @@ tuple<int, int> structures::Trie::find_index(string word) {
     for (int i = 0; i < word.length(); i++) {
         /* se o nó atual não possui esse char como filho retorna 0,0 que vai ser
         tratado de alguma forma lá na frente */
-        if (!current_node->contains(word[i])) {
+        int value = word[i]-'a';
+        if (!current_node->contains(value)) {
             index = make_tuple(0,0);
             break;
         }
         current_node = current_node->get_children(word[i]-'a');
-        index = make_tuple(current_node->get_position(), current_node->get_length());
     }
+    index = make_tuple(current_node->get_position(), current_node->get_length());
     return index;
 }
+
+//tuple<int, int> structures::Trie::find_index(string word) {
+
+//}

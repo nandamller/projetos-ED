@@ -106,10 +106,10 @@ class TrieNode{
 
 #endif
 
-structures::TrieNode::TrieNode(char charac, int position, int length) {
+structures::TrieNode::TrieNode(char charac, int position1, int length1) {
     character = charac;
-    position = position;
-    length = length;
+    position = position1;
+    length = length1;
     children_amount = 0;
     prefix_of = 0;
 

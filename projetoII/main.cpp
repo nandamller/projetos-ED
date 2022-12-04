@@ -10,6 +10,7 @@ stop is prefix of 1 words
 
 #include <fstream>
 #include <iostream>
+#include <tuple>
 
 #include "./classes/Trie.h"
 
@@ -38,6 +39,9 @@ int main() {
             cout << word << " is not prefix" << endl;
         } else {
             cout << word << " is prefix of " << trie.check_prefix_amount(word) << " words" << endl;
+            tuple<int, int> pedro;
+            pedro = trie.find_index(word);
+            cout << word << " is at (" << get<0>(pedro) << ", " << get<1>(pedro) << ")" << endl;
         }
     }
     // apagando da entrada os caracteres que correspondem ao dicionário
