@@ -83,7 +83,7 @@ structures::Trie::Trie(string dict) {
         int pos = 0;
         int prev = -1;
         while (getline(file_dict, line)) {
-            
+
             string word;
 
             // loop p/ encontrar a palavra
