@@ -1,13 +1,5 @@
 // @ COPYRIGHT [2022] <Fernanda Müller e Pedro Nack>
 
-/* EXEMPLOS DE SAÍDA
-bear is prefix of 1 words
-bear is at (0,149)
-bu is prefix of 2 words
-but is not prefix
-stop is prefix of 1 words
-*/
-
 #include <fstream>
 #include <iostream>
 #include <tuple>
@@ -59,13 +51,16 @@ int main() {
         } else {
             cout << word << " is prefix of " << trie.check_prefix_amount(word) << " words" << endl;
             tuple<int, int> values;
+            
             values = trie.find_index(word);
-            cout << word << " is at (" << get<0>(values) << ", " << get<1>(values) << ")" << endl;
+
+            if (get<0>(values) != 0 || get<1>(values) != 0) {
+                cout << word << " is at (" << get<0>(values) << "," << get<1>(values) << ")" << endl;
+            }
         }
         if (words_to_search.empty()) {
             break;
         }
     }
-    // apagando da entrada os caracteres que correspondem ao dicionário
-    // input_string.erase(0, 13);
+    
 }
